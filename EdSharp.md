@@ -360,9 +360,7 @@ Compiler settings are stored in the [Compilers] section of the EdSharp.ini file.
 
 ## Scripting Add-Ins
 
-Almost the complete object model of the EdSharp application has been exposed to add-in code in the JScript .NET language, explained at\
-
-[JScript.net documentation page](https://docs.microsoft.com/en-us/dotnet/api/microsoft.jscript)
+Almost the complete object model of the EdSharp application has been exposed to add-in code in the JScript .NET language, explained at the [JScript.net documentation page](https://docs.microsoft.com/en-us/dotnet/api/microsoft.jscript)
 
 JScript.NET is a version of JavaScript with access to the huge library of the .NET Framework.  In EdSharp, JScript code may be used in the Evaluate Expression command (Control+Equals), Replace Tokens command (Control+Shift+Equals), and Paste Snippet command (Alt+V).  Stand-alone JScript executables may also be created with the JScript .NET compiler (jsc.exe), which is included with free .NET developer tools.
 
@@ -372,7 +370,7 @@ The EdSharp object model includes a hierarchy of classes corresponding to the ov
 
   Thus, a JScript routine might start by creating one or more object variables as follows:
 
-`` jscript.net`
+``` jscript.net
 var frame = App.Frame
 var child = frame.Child
 var rtb = child.RTB

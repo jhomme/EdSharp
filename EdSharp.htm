@@ -204,19 +204,16 @@ Signature=(&quot;Sincerely,\nJohn Doe\nJohn.Doe@NiftyHomePage.com\n&quot;)</code
 <p>For PowerBASIC, a batch file is needed (in the EdSharp program folder), which refers to the default location of PowerBASIC for Windows version 10.0. The path to the JAWS script compiler is also hard coded for the latest version. JAWS scripting is additionally supported by EdSharp’s own scripts: Control+I is a hot key for inserting the path to the user script folder, and Control+Shift+I is for the All Users script folder, when focus is in the Open or Save Dialog of EdSharp.</p>
 <p>Compiler settings are stored in the [Compilers] section of the EdSharp.ini file. Only current compiler settings appear in the configuration options dialog, Alt+Shift+C. Other settings may be edited, however, using the Manual Options command, Alt+Shift+M. You can adjust command line parameters of configured compilers, or add others. Installing a new version of EdSharp does not change existing compiler settings.</p>
 <h2 id="scripting-add-ins">Scripting Add-Ins</h2>
-<p>Almost the complete object model of the EdSharp application has been exposed to add-in code in the JScript .NET language, explained at<br />
-</p>
-<p><a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.jscript">JScript.net documentation page</a></p>
+<p>Almost the complete object model of the EdSharp application has been exposed to add-in code in the JScript .NET language, explained at the <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.jscript">JScript.net documentation page</a></p>
 <p>JScript.NET is a version of JavaScript with access to the huge library of the .NET Framework. In EdSharp, JScript code may be used in the Evaluate Expression command (Control+Equals), Replace Tokens command (Control+Shift+Equals), and Paste Snippet command (Alt+V). Stand-alone JScript executables may also be created with the JScript .NET compiler (jsc.exe), which is included with free .NET developer tools.</p>
 <p>Using the Compile command (Control+F5) is the best way to debug JScript code even if you want to use it as an add-in rather than stand-alone executable. This is because the JScript compiler provides error information that is not available when add-in code fails to execute due to syntax errors. When writing code in this way, you will probably want to import one or more namespaces to abbreviate .NET references, e.g., by copying statements at the top of the Eval.js file in the EdSharp program folder. Comment out such import statements in the debugged, add-in version of the code, since EdSharp already calls them internally.</p>
 <p>The EdSharp object model includes a hierarchy of classes corresponding to the overall application, multiple document interface (MDI) frame, MDI child windows, and RichTextBox (RTB) within each window. Typically, a script will manipulate text in the current RTB control. The Frame property of the App class refers to the single MDI frame. The Child property of that frame object refers to the active MDI child. The RTB property of that child object refers to the current editing control.</p>
 <p>Thus, a JScript routine might start by creating one or more object variables as follows:</p>
-<p>`<code>jscript.net</code> var frame = App.Frame var child = frame.Child var rtb = child.RTB</p>
-<pre><code>
-By convention, .NET properties are initially capitalized, whereas field and local variables are not.  Methods of the frame object can invoke menu items, e.g., a new editing window could be created with the following statement:
-
-``` jscript.net
-frame.menuFileNew.PerformClick()</code></pre>
+<pre class="jscript.net"><code>var frame = App.Frame
+var child = frame.Child
+var rtb = child.RTB</code></pre>
+<p>By convention, .NET properties are initially capitalized, whereas field and local variables are not. Methods of the frame object can invoke menu items, e.g., a new editing window could be created with the following statement:</p>
+<pre class="jscript.net"><code>frame.menuFileNew.PerformClick()</code></pre>
 <p>Methods and properties of an RTB (RichTextBox) object are explained at the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.richtextbox">RichText box documentation page</a></p>
 <p>EdSharp also adds some methods and properties in its inherited version of the RichTextBox class, e.g., the ReplaceRange method for replacing text between two points in the current document. Other EdSharp classes provide convenient scripting methods, e.g., Dialog.Pick gets a user choice from a listbox and Util.String2File saves a string of text to a file on disk.</p>
 <p>These classes will be further documented based on questions received. At present, the best way to learn them is to examine code in sample .js snippet files and the main EdSharp.cs program file, which implement behavior you experience when running the application. Although the .cs code is in the C# language, its syntax is similar to JScript, and the names of classes, methods, and properties are the same.</p>
